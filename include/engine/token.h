@@ -3,7 +3,7 @@
 
 #define MAX_IDENT_LEN 32
 
-typedef enum token_kind
+typedef enum e_token_kind
 {
     TOKEN_KIND_NUM,
 
@@ -22,16 +22,25 @@ typedef enum token_kind
     TOKEN_KIND_END
 } Token_Kind;
 
-typedef struct token
+typedef struct token_t
 {
     Token_Kind kind;
 
-    union token_value
+    union u_token_value
     {
         double number;
         char string[MAX_IDENT_LEN];
     } as;
 
 } Token;
+
+typedef enum e_token_associativity
+{
+    ASSOC_LEFT,
+    ASSOC_RIGHT
+} Token_Assoc;
+
+int token_precedence(Token_Kind kind);
+Token_Assoc token_associativity(Token_Kind kind);
 
 #endif
